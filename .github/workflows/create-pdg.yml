@@ -1,0 +1,30 @@
+name: Créer le compte PDG
+
+on:
+  workflow_dispatch:
+    inputs:
+      email:
+        description: "Email du PDG"
+        required: true
+      nom:
+        description: "Nom complet du PDG"
+        required: true
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Installer firebase-admin
+        run: npm install --no-save firebase-admin@12
+      - name: Écrire la clé de service
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > "$RUNNER_TEMP/sa.json"
+      - name: Créer le compte
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
+          PDG_EMAIL: ${{ inputs.email }}
+          PDG_NOM: ${{ inputs.nom }}
+        run: node scripts/create-pdg.mjs

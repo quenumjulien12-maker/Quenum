@@ -1,0 +1,13 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "messages",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "statut", "order": "ASCENDING" },
+        { "fieldPath": "creeLe", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

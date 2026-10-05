@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maison Quenum — BTP, Import-Export, Conseil juridique</title>
+  <meta name="description" content="Maison Quenum (Quenum Entreprise et Conseil) : bâtiment et travaux publics, import-export, conseil juridique.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="container">
+      <a class="brand" href="#accueil">
+        <img src="assets/logo.png" alt="Logo Maison Quenum">
+        <span>Maison Quenum</span>
+      </a>
+      <nav class="main">
+        <a class="link" href="#poles" data-i18n="nav.poles">Nos pôles</a>
+        <a class="link" href="#apropos" data-i18n="nav.about">À propos</a>
+        <a class="link" href="#contact" data-i18n="nav.contact">Contact</a>
+        <div class="lang">
+          <button class="lang-btn" data-lang="fr" type="button">FR</button>
+          <button class="lang-btn" data-lang="en" type="button">EN</button>
+        </div>
+        <a class="btn small ghost" href="app/" data-i18n="nav.login">Espace gestion</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="container">
+        <div>
+          <p class="eyebrow" data-i18n="hero.eyebrow">Quenum Entreprise et Conseil</p>
+          <h1 data-i18n="hero.title">Bâtir, échanger, conseiller.</h1>
+          <p data-i18n="hero.text">Maison Quenum accompagne particuliers et entreprises dans trois métiers : le bâtiment et les travaux publics, l'import-export, et le conseil juridique.</p>
+          <div class="actions">
+            <a class="btn" href="#contact" data-i18n="hero.cta1">Demander un devis</a>
+            <a class="btn ghost" href="#poles" data-i18n="hero.cta2">Découvrir nos pôles</a>
+          </div>
+        </div>
+        <div class="logo-big"><img src="assets/logo.png" alt="Maison Quenum"></div>
+      </div>
+    </section>
+
+    <section class="alt" id="poles">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="poles.title">Trois pôles, une même exigence</h2>
+          <p data-i18n="poles.sub">Un interlocuteur unique pour construire, commercer et sécuriser vos projets.</p>
+        </div>
+        <div class="cards">
+          <article class="card"><div class="num">01</div><h3 data-i18n="btp.title">Bâtiment et Travaux Publics</h3><p data-i18n="btp.text"></p></article>
+          <article class="card"><div class="num">02</div><h3 data-i18n="ie.title">Import-Export</h3><p data-i18n="ie.text"></p></article>
+          <article class="card"><div class="num">03</div><h3 data-i18n="jur.title">Conseil juridique</h3><p data-i18n="jur.text"></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="apropos">
+      <div class="container about">
+        <div class="section-head"><h2 data-i18n="about.title">À propos de Maison Quenum</h2></div>
+        <p data-i18n="about.text"></p>
+        <div class="values">
+          <span data-i18n="about.v1">Rigueur</span>
+          <span data-i18n="about.v2">Transparence</span>
+          <span data-i18n="about.v3">Service</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h2 data-i18n="contact.title">Contactez-nous</h2>
+          <p data-i18n="contact.sub">Décrivez votre besoin : notre équipe vous répond dans les meilleurs délais.</p>
+        </div>
+        <form class="contact" id="contactForm" novalidate>
+          <div class="row2">
+            <label><span data-i18n="form.nom">Nom complet</span><input name="nom" required maxlength="120" autocomplete="name"></label>
+            <label><span data-i18n="form.email">Email</span><input name="email" type="email" required maxlength="200" autocomplete="email"></label>
+          </div>
+          <div class="row2">
+            <label><span data-i18n="form.tel">Téléphone (facultatif)</span><input name="telephone" type="tel" maxlength="40" autocomplete="tel"></label>
+            <label><span data-i18n="form.pole">Sujet concerné</span>
+              <select name="pole">
+                <option value="general" data-i18n="form.pole.general">Question générale</option>
+                <option value="btp" data-i18n="form.pole.btp">Bâtiment et Travaux Publics</option>
+                <option value="import_export" data-i18n="form.pole.import_export">Import-Export</option>
+                <option value="juridique" data-i18n="form.pole.juridique">Conseil juridique</option>
+              </select>
+            </label>
+          </div>
+          <label><span data-i18n="form.sujet">Objet</span><input name="sujet" maxlength="200"></label>
+          <label><span data-i18n="form.message">Votre message</span><textarea name="message" required maxlength="5000"></textarea></label>
+          <div class="hp" aria-hidden="true"><label>Site web<input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="notice" id="formNotice" role="status"></div>
+          <button class="btn" type="submit" id="sendBtn" data-i18n="form.send">Envoyer</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="container">© <span id="year"></span> Maison Quenum — Quenum Entreprise et Conseil. <span data-i18n="footer.rights">Tous droits réservés.</span></div>
+  </footer>
+
+  <script type="module" src="js/site.js"></script>
+</body>
+</html>

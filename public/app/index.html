@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Espace de gestion — Maison Quenum</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <!-- Connexion -->
+  <div id="login" class="login">
+    <form id="loginForm" class="login-card" novalidate>
+      <img src="../assets/logo.png" alt="Maison Quenum" class="login-logo">
+      <h1>Espace de gestion</h1>
+      <p class="muted">Maison Quenum — Quenum Entreprise et Conseil</p>
+      <label>Email<input type="email" id="loginEmail" autocomplete="username" required></label>
+      <label>Mot de passe<input type="password" id="loginPass" autocomplete="current-password" required></label>
+      <div id="loginErr" class="alert err" hidden></div>
+      <button class="btn" type="submit" id="loginBtn">Se connecter</button>
+      <button class="link-btn" type="button" id="forgotBtn">Mot de passe oublié ?</button>
+      <a class="link-btn" href="../">← Retour au site</a>
+    </form>
+  </div>
+
+  <!-- Application -->
+  <div id="shell" class="shell" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand"><img src="../assets/logo.png" alt=""><span>Maison Quenum</span></div>
+      <nav id="nav"></nav>
+      <div class="side-foot">
+        <div id="meName" class="me-name"></div>
+        <div id="meRole" class="me-role"></div>
+        <button class="btn ghost small" id="logoutBtn" type="button">Déconnexion</button>
+      </div>
+    </aside>
+    <main class="content">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰</button>
+      <div id="view"></div>
+    </main>
+  </div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-box" id="modalBox" role="dialog" aria-modal="true"></div>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- Fonctions utilitaires ----------
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profil() {
+      return get(/databases/$(database)/documents/utilisateurs/$(request.auth.uid)).data;
+    }
+
+    function actif() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/utilisateurs/$(request.auth.uid))
+        && profil().statut == 'actif';
+    }
+
+    function estPdg() {
+      return actif() && profil().role == 'pdg';
+    }
+
+    function aEspace(espace) {
+      return estPdg() || (actif() && (espace in profil().espaces));
+    }
+
+    // ---------- Utilisateurs ----------
+    match /utilisateurs/{uid} {
+      // Chacun lit son propre profil (même bloqué, pour afficher le message) ; le PDG lit tout.
+      allow read: if signedIn() && (request.auth.uid == uid || estPdg());
+      // Seul le PDG crée et modifie les profils des AUTRES comptes. Aucune suppression.
+      allow create: if estPdg() && request.auth.uid != uid
+        && request.resource.data.role == 'collaborateur'
+        && request.resource.data.statut in ['actif', 'bloque'];
+      allow update: if estPdg() && request.auth.uid != uid
+        && request.resource.data.role == 'collaborateur';
+      allow delete: if false;
+    }
+
+    // ---------- Messages du site public ----------
+    match /messages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(
+          ['nom', 'email', 'telephone', 'pole', 'sujet', 'message', 'langue', 'statut', 'creeLe'])
+        && request.resource.data.nom is string
+        && request.resource.data.nom.size() > 0 && request.resource.data.nom.size() <= 120
+        && request.resource.data.email is string
+        && request.resource.data.email.size() >= 5 && request.resource.data.email.size() <= 200
+        && request.resource.data.telephone is string && request.resource.data.telephone.size() <= 40
+        && request.resource.data.pole in ['general', 'btp', 'import_export', 'juridique']
+        && request.resource.data.sujet is string && request.resource.data.sujet.size() <= 200
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0 && request.resource.data.message.size() <= 5000
+        && request.resource.data.langue in ['fr', 'en']
+        && request.resource.data.statut == 'nouveau'
+        && request.resource.data.creeLe == request.time;
+      allow read, update: if aEspace('secretariat');
+      allow delete: if estPdg();
+    }
+
+    // ---------- Espaces métiers (phase 2 : modules détaillés) ----------
+    match /clients/{id}   { allow read, write: if aEspace('commercial'); }
+    match /devis/{id}     { allow read, write: if aEspace('comptabilite'); }
+    match /factures/{id}  { allow read, write: if aEspace('comptabilite'); }
+    match /depenses/{id}  { allow read, write: if aEspace('comptabilite'); }
+    match /paiements/{id} { allow read, write: if aEspace('comptabilite'); }
+    match /chantiers/{id} { allow read, write: if aEspace('btp'); }
+    match /commandes/{id} { allow read, write: if aEspace('import_export'); }
+    match /dossiers/{id}  { allow read, write: if aEspace('juridique'); }
+    match /personnel/{id} { allow read, write: if aEspace('rh'); }
+
+    // ---------- Journal d'activité : écriture seule, lecture par le PDG ----------
+    match /journal/{id} {
+      allow create: if actif() && request.resource.data.auteur == request.auth.uid
+        && request.resource.data.creeLe == request.time;
+      allow read: if estPdg();
+      allow update, delete: if false;
+    }
+
+    // ---------- Paramètres ----------
+    match /parametres/{id} {
+      allow read: if actif();
+      allow write: if estPdg();
+    }
+
+    // Tout le reste est interdit
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
