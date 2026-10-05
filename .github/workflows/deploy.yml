@@ -27,6 +27,6 @@ jobs:
           code=$?
           cat "$RUNNER_TEMP/out.txt"
           if [ $code -ne 0 ]; then
-            echo "::error title=Erreur Firebase::$(grep -v '^\s*$' "$RUNNER_TEMP/out.txt" | tail -n 12 | tr '\n' ' ' | cut -c1-900)"
+            echo "::error title=Erreur Firebase::$(grep -v -E '^\s*$|npm warn' "$RUNNER_TEMP/out.txt" | tail -n 10 | tr '\n' ' ' | cut -c1-900)"
           fi
           exit $code
