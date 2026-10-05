@@ -21,4 +21,12 @@ jobs:
       - name: Déployer Hosting et règles Firestore
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/sa.json
-        run: npx --yes firebase-tools@latest deploy --only hosting,firestore --project "${{ secrets.FIREBASE_PROJECT_ID }}" --non-interactive
+        run: |
+          set +e
+          npx --yes firebase-tools@latest deploy --only hosting,firestore --project "${{ secrets.FIREBASE_PROJECT_ID }}" --non-interactive > "$RUNNER_TEMP/out.txt" 2>&1
+          code=$?
+          cat "$RUNNER_TEMP/out.txt"
+          if [ $code -ne 0 ]; then
+            echo "::error title=Erreur Firebase::$(grep -v '^\s*$' "$RUNNER_TEMP/out.txt" | tail -n 12 | tr '\n' ' ' | cut -c1-900)"
+          fi
+          exit $code
