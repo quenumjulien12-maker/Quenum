@@ -5,7 +5,7 @@ import { T, getLang, setLang, applyLang } from "./i18n.js";
 
 let lang = getLang();
 applyLang(lang);
-document.getElementById("year").textContent = new Date().getFullYear();
+const yr = document.getElementById("year"); if (yr) yr.textContent = new Date().getFullYear();
 
 document.querySelectorAll(".lang-btn").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -26,7 +26,7 @@ function show(type, key) {
   notice.textContent = T[lang][key];
 }
 
-form.addEventListener("submit", async (e) => {
+form?.addEventListener("submit", async (e) => {
   e.preventDefault();
   notice.className = "notice";
   const f = new FormData(form);
@@ -66,3 +66,13 @@ form.addEventListener("submit", async (e) => {
     sendBtn.textContent = T[lang]["form.send"];
   }
 });
+
+const burger = document.querySelector(".burger");
+const mainNav = document.getElementById("mainNav");
+burger?.addEventListener("click", () => {
+  const open = mainNav.classList.toggle("open");
+  burger.setAttribute("aria-expanded", String(open));
+});
+const sel = document.querySelector('select[name="pole"]');
+const wanted = new URLSearchParams(location.search).get("pole");
+if (sel && wanted && [...sel.options].some(o => o.value === wanted)) sel.value = wanted;
