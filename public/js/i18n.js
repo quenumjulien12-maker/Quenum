@@ -55,7 +55,24 @@ export const T = {
     "ap.t2": "Nos valeurs",
     "about.v1d": "Des études sérieuses, des délais tenus, un travail vérifié.",
     "about.v2d": "Des devis clairs, des suivis réguliers, aucune zone d'ombre.",
-    "about.v3d": "Une relation durable : nous restons à vos côtés après la livraison."
+    "about.v3d": "Une relation durable : nous restons à vos côtés après la livraison.",
+    "why.title": "Pourquoi choisir Maison Quenum",
+    "met.title": "Notre méthode",
+    "met.sub": "Quatre étapes simples, du premier échange à la livraison.",
+    "m1.t": "Écoute",
+    "m1.d": "Nous comprenons votre besoin et vos contraintes.",
+    "m2.t": "Devis",
+    "m2.d": "Une proposition claire et chiffrée, sans surprise.",
+    "m3.t": "Réalisation",
+    "m3.d": "Nous exécutons avec rigueur et dans les délais.",
+    "m4.t": "Suivi",
+    "m4.d": "Des points réguliers et un accompagnement après livraison.",
+    "ceo.title": "Le mot du PDG",
+    "ceo.p": "Chez Maison Quenum, nous croyons qu'un projet réussi repose sur trois choses : une écoute attentive, un travail rigoureux et une parfaite transparence. Chaque client doit se sentir accompagné avec sérieux, de la première conversation jusqu'à la livraison.",
+    "ceo.sig": "Julien QUENUM, PDG",
+    "wa": "WhatsApp",
+    "ct.call": "Appeler",
+    "ct.wa": "Écrire sur WhatsApp"
   },
   en: {
     "nav.home": "Home", "nav.poles": "Our divisions", "nav.about": "About", "nav.contact": "Contact", "nav.login": "Staff portal",
@@ -113,7 +130,24 @@ export const T = {
     "ap.t2": "Our values",
     "about.v1d": "Sound studies, deadlines kept, verified work.",
     "about.v2d": "Clear quotes, regular updates, no grey areas.",
-    "about.v3d": "A lasting relationship: we stay by your side after delivery."
+    "about.v3d": "A lasting relationship: we stay by your side after delivery.",
+    "why.title": "Why choose Maison Quenum",
+    "met.title": "How we work",
+    "met.sub": "Four simple steps, from the first conversation to delivery.",
+    "m1.t": "Listening",
+    "m1.d": "We understand your needs and constraints.",
+    "m2.t": "Quote",
+    "m2.d": "A clear, itemised proposal, no surprises.",
+    "m3.t": "Delivery",
+    "m3.d": "We execute with rigour and on schedule.",
+    "m4.t": "Follow-up",
+    "m4.d": "Regular updates and support after delivery.",
+    "ceo.title": "A word from the CEO",
+    "ceo.p": "At Maison Quenum, we believe a successful project rests on three things: attentive listening, rigorous work and full transparency. Every client should feel supported with care, from the first conversation to delivery.",
+    "ceo.sig": "Julien QUENUM, CEO",
+    "wa": "WhatsApp",
+    "ct.call": "Call",
+    "ct.wa": "Message on WhatsApp"
   }
 };
 
