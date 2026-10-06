@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
   <title>Espace de gestion — Maison Quenum</title>
   <link rel="icon" type="image/png" href="../assets/favicon.png">
@@ -29,6 +29,12 @@
 
   <!-- Application -->
   <div id="shell" class="shell" hidden>
+    <header class="appbar" id="appbar">
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰</button>
+      <img src="../assets/logo.png" alt="" class="ab-logo">
+      <span class="ab-title" id="appbarTitle">Maison Quenum</span>
+    </header>
+    <div class="scrim" id="scrim" hidden></div>
     <aside class="sidebar" id="sidebar">
       <div class="side-brand"><img src="../assets/logo.png" alt=""><span>Maison Quenum</span></div>
       <nav id="nav"></nav>
@@ -39,7 +45,7 @@
       </div>
     </aside>
     <main class="content">
-      <button class="menu-btn" id="menuBtn" type="button" aria-label="Menu">☰</button>
+      <div id="welcome" hidden></div>
       <div id="view"></div>
     </main>
   </div>

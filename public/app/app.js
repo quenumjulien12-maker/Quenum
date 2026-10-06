@@ -106,7 +106,16 @@ $("#forgotBtn").addEventListener("click", async () => {
   err.hidden = false;
 });
 $("#logoutBtn").addEventListener("click", () => signOut(auth));
-$("#menuBtn").addEventListener("click", () => $("#sidebar").classList.toggle("open"));
+let homeSpace = null;
+const setMenu = (open) => { $("#sidebar").classList.toggle("open", open); $("#scrim").hidden = !open; };
+$("#menuBtn").addEventListener("click", () => setMenu(!$("#sidebar").classList.contains("open")));
+$("#scrim").addEventListener("click", () => setMenu(false));
+function renderWelcome() {
+  const h = new Date().getHours();
+  const hello = h >= 18 || h < 4 ? "Bonsoir" : "Bonjour";
+  const d = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  $("#welcome").innerHTML = `<div class="welcome"><div class="w-date">${esc(d)}</div><h2>${hello}, <em>${esc(me.nom || me.email)}</em></h2><div class="w-role">${isPdg() ? "PDG" : "Collaborateur"} · Maison Quenum</div><div class="w-tag">« Bâtir, échanger, conseiller »</div></div>`;
+}
 
 function showLogin(message) {
   $("#shell").hidden = true; $("#login").hidden = false;
@@ -137,6 +146,7 @@ function startApp() {
   $("#meRole").textContent = isPdg() ? "PDG" : "Collaborateur";
   buildNav();
   const first = isPdg() ? "direction" : me.espaces.find(s => SPACES[s]);
+  homeSpace = first; renderWelcome();
   if (first) go(first); else $("#view").innerHTML = '<div class="card empty">Aucun espace ne vous est encore délégué. Contactez le PDG.</div>';
 }
 
@@ -146,12 +156,15 @@ function buildNav() {
   $("#nav").innerHTML = Object.entries(groups).map(([g, ids]) =>
     `<div class="group">${esc(g)}</div>` + ids.map(id => `<button data-space="${id}">${esc(SPACES[id].label)}</button>`).join("")
   ).join("");
-  $("#nav").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { go(b.dataset.space); $("#sidebar").classList.remove("open"); }));
+  $("#nav").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { go(b.dataset.space); setMenu(false); }));
 }
 
 function go(space) {
   if (!canAccess(space)) return;
   current = space;
+  $("#welcome").hidden = space !== homeSpace;
+  $("#appbarTitle").textContent = SPACES[space].label;
+  window.scrollTo(0, 0);
   $("#nav").querySelectorAll("button").forEach(b => b.classList.toggle("active", b.dataset.space === space));
   if (space === "direction") return renderDirection("apercu");
   if (space === "secretariat") return renderSecretariat();
